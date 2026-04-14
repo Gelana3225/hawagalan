@@ -1,105 +1,170 @@
 # Haawwaa Galaan
 
-Public-facing website and content administration for **Haawwaa Galaan**—a Laravel application for showcasing community information, agriculture, tourism, leadership, news, and contact details, with a protected admin area for editors.
+Production-ready Laravel platform for managing and publishing community content for **Haawwaa Galaan**.  
+The project combines a public-facing website with a secure admin panel for content operations.
 
-## Features
+## Table of Contents
 
-- **Public site** — Home with hero slideshow, farming, tourism, and biography pages driven by configurable content.
-- **Admin panel** (`/admin`) — Authenticated dashboard to manage page sections, hero slides, gallery-style photo sets, leaders, services, farming items, tourism attractions, news posts, contact information, and a media library.
-- **Authentication** — User accounts, login, registration, and email verification via [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze).
+- [Overview](#overview)
+- [Core Capabilities](#core-capabilities)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Running in Development](#running-in-development)
+- [Testing and Code Quality](#testing-and-code-quality)
+- [Project Structure](#project-structure)
+- [Deployment Notes](#deployment-notes)
+- [Security](#security)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Tech stack
+## Overview
+
+Haawwaa Galaan is a content-driven web application that supports:
+
+- Publishing pages related to community life, agriculture, tourism, leadership, and updates.
+- Managing content through an authenticated admin dashboard.
+- Serving uploaded media assets through Laravel's public storage pipeline.
+
+The application is designed for maintainability, editor usability, and fast iterative updates.
+
+## Core Capabilities
+
+- **Public Website**
+  - Homepage with configurable hero slideshow.
+  - Dedicated pages for farming, tourism, biography, services, and general sections.
+  - News and contact information accessible to visitors.
+
+- **Admin Dashboard** (`/admin`)
+  - CRUD workflows for sections, slides, gallery/media items, leaders, services, farming entries, tourism attractions, and news.
+  - Centralized media library management.
+  - Role-protected access through Laravel authentication.
+
+- **Authentication**
+  - Account registration/login flows.
+  - Email verification support.
+  - Starter auth scaffolding via [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze).
+
+## Architecture
+
+The codebase follows standard Laravel conventions:
+
+- Routing and request handling through `routes/web.php` and controller layers.
+- Blade-based server-rendered UI for both public and admin experiences.
+- Relational schema managed through migrations.
+- Asset pipeline managed by Vite for modern front-end builds.
+
+## Technology Stack
 
 | Layer | Technology |
-|--------|------------|
+| --- | --- |
 | Backend | PHP 8.2+, [Laravel 11](https://laravel.com/docs/11.x) |
 | Frontend | [Vite](https://vitejs.dev/), [Tailwind CSS](https://tailwindcss.com/), [Alpine.js](https://alpinejs.dev/) |
-| Database | SQLite by default (MySQL/PostgreSQL supported via `.env`) |
-| Testing | PHPUnit (Laravel’s `php artisan test`) |
+| Database | SQLite by default (MySQL/PostgreSQL configurable via `.env`) |
+| Auth | [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze) |
+| Testing | PHPUnit (`php artisan test`) |
 
-## Requirements
+## Prerequisites
 
-- PHP 8.2 or newer with common extensions (`openssl`, `pdo`, `mbstring`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`)
+Install the following before setup:
+
+- PHP 8.2+ with extensions: `openssl`, `pdo`, `mbstring`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`
 - [Composer](https://getcomposer.org/)
-- [Node.js](https://nodejs.org/) 18+ and npm (for asset building)
+- [Node.js](https://nodejs.org/) 18+ and npm
+- A local database engine (SQLite, MySQL, or PostgreSQL)
 
-## Local setup
+## Quick Start
 
-1. **Clone the repository** and enter the project directory.
+```bash
+# 1) Install dependencies
+composer install
+npm install
 
-2. **Install PHP dependencies**
+# 2) Configure environment
+cp .env.example .env
+# On Windows PowerShell, use: copy .env.example .env
 
-   ```bash
-   composer install
-   ```
+# 3) Generate app key
+php artisan key:generate
 
-3. **Environment file**
+# 4) Prepare database (SQLite default)
+# Ensure database/database.sqlite exists, then:
+php artisan migrate
 
-   ```bash
-   copy .env.example .env
-   ```
+# 5) Link storage for uploaded media
+php artisan storage:link
 
-   On Unix-like systems, use `cp .env.example .env`.
+# 6) Build frontend assets
+npm run build
 
-   Adjust `APP_NAME`, `APP_URL`, and database settings as needed. The default configuration uses SQLite (`DB_CONNECTION=sqlite`); ensure `database/database.sqlite` exists (Laravel’s installer can create it, or create an empty file manually).
+# 7) Start application
+php artisan serve
+```
 
-4. **Application key**
+Open `http://127.0.0.1:8000` and sign in at `/admin`.
 
-   ```bash
-   php artisan key:generate
-   ```
+## Running in Development
 
-5. **Database**
+For full-stack local development, run backend and Vite dev server concurrently:
 
-   ```bash
-   php artisan migrate
-   ```
+```bash
+# Terminal 1
+php artisan serve
 
-6. **Public storage link** (required for uploaded images and media served from `storage/app/public`)
+# Terminal 2
+npm run dev
+```
 
-   ```bash
-   php artisan storage:link
-   ```
+This enables hot-reloaded assets while serving Laravel routes locally.
 
-7. **Front-end assets**
+## Testing and Code Quality
 
-   ```bash
-   npm install
-   npm run build
-   ```
+```bash
+# Run automated tests
+php artisan test
 
-   For local development with hot reload, use `npm run dev` in a separate terminal.
+# Format PHP code
+./vendor/bin/pint
+```
 
-8. **Run the application**
+Recommended before opening a pull request:
 
-   ```bash
-   php artisan serve
-   ```
+1. Run tests locally.
+2. Apply formatting.
+3. Verify core admin flows and media upload behavior.
 
-   Visit `http://127.0.0.1:8000`. Register a user (if registration is enabled) and sign in to access `/admin`.
+## Project Structure
 
-## Development
+- `app/Http/Controllers` - Public and `Admin\*` controllers
+- `resources/views` - Blade layouts, public pages, and admin views
+- `database/migrations` - Database schema definitions
+- `routes/web.php` - Public and admin web routes
+- `public` - Public web root and built assets
 
-- **Full-stack dev** — Run `php artisan serve` and `npm run dev` concurrently so Blade views and Vite assets stay in sync.
-- **Tests**
+## Deployment Notes
 
-  ```bash
-  php artisan test
-  ```
-
-- **Code style** — The project includes Laravel Pint (`./vendor/bin/pint`) for PHP formatting.
-
-## Project structure (high level)
-
-- `app/Http/Controllers` — Public `PageController` and `Admin\*` controllers for CMS-style resources.
-- `resources/views` — Blade layouts, public pages, and admin screens.
-- `database/migrations` — Schema for sections, leaders, services, farming, tourism, news, and related tables.
-- `routes/web.php` — Public routes and `/admin` route group.
+- Set `APP_ENV=production` and `APP_DEBUG=false`.
+- Configure a production-ready `APP_URL`.
+- Run `php artisan migrate --force` during deployment.
+- Ensure `php artisan storage:link` has been executed on the target host.
+- Build assets with `npm run build` and serve from `public/build`.
 
 ## Security
 
-Report security issues privately to the repository maintainers. Do not commit real credentials; keep `.env` out of version control.
+- Never commit secrets or real credentials.
+- Keep `.env` private and environment-specific.
+- Report vulnerabilities privately to project maintainers.
+
+## Contributing
+
+Contributions are welcome. For effective collaboration:
+
+1. Create a feature branch from the default branch.
+2. Keep changes scoped and reviewable.
+3. Include tests or validation steps for behavior changes.
+4. Submit a pull request with a clear description and test notes.
 
 ## License
 
-This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
