@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Edit Leader')
 
@@ -36,7 +36,7 @@
             <label style="display: block; font-size: 0.85rem; font-weight: 500; color: #374151; margin-bottom: 6px;">Photo</label>
             @if($leader->photo)
             <div style="margin-bottom: 10px;">
-                <img id="photo-preview" src="{{ Storage::url($leader->photo) }}" alt="{{ $leader->name }}"
+                <img id="photo-preview" src="{{ asset('images/'.$leader->photo) }}" alt="{{ $leader->name }}"
                      style="width: 120px; height: 120px; object-fit: cover; border-radius: 10px;"
                      onerror="this.style.display='none'">
             </div>

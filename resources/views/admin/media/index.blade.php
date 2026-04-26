@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Media Library')
 
@@ -41,7 +41,7 @@
     @foreach($media as $item)
     <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: relative; group;">
         <div style="height: 140px; overflow: hidden; background: #f3f4f6;">
-            <img src="{{ Storage::url($item->path) }}" alt="{{ $item->alt_text ?: $item->filename }}"
+            <img src="{{ asset('images/'.$item->path) }}" alt="{{ $item->alt_text ?: $item->filename }}"
                  style="width: 100%; height: 100%; object-fit: cover;"
                  onerror="this.src=''; this.style.display='none'">
         </div>
@@ -53,7 +53,7 @@
                 {{ number_format($item->size / 1024, 1) }} KB
             </p>
             <div style="display: flex; gap: 8px; align-items: center;">
-                <button onclick="navigator.clipboard.writeText('{{ Storage::url($item->path) }}')"
+                <button onclick="navigator.clipboard.writeText('{{ asset('images/'.$item->path) }}')"
                         style="flex: 1; background: #f3f4f6; color: #374151; border: none; padding: 5px 8px; border-radius: 6px; font-size: 0.75rem; cursor: pointer;">
                     Copy URL
                 </button>

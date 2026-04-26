@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Hero Slideshow Photos')
 
@@ -37,7 +37,7 @@
             {{-- Preview --}}
             <div style="width: 100%; height: 160px; border-radius: 10px; overflow: hidden; margin-bottom: 12px; background: #f3f4f6; display: flex; align-items: center; justify-content: center;">
                 @if($existing)
-                <img src="{{ Storage::url($existing->value) }}" alt="Slide {{ $i }}"
+                <img src="{{ asset('images/'.$existing->value) }}" alt="Slide {{ $i }}"
                      id="preview-{{ $i }}"
                      style="width: 100%; height: 100%; object-fit: cover;">
                 @else

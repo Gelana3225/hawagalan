@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Farming Items')
 
@@ -24,7 +24,7 @@
             <tr style="border-bottom: 1px solid #f3f4f6;">
                 <td style="padding: 12px 20px;">
                     @if($item->image)
-                    <img src="{{ Storage::url($item->image) }}" alt="{{ $item->label }}"
+                    <img src="{{ asset('images/'.$item->image) }}" alt="{{ $item->label }}"
                          style="width: 60px; height: 45px; object-fit: cover; border-radius: 6px;"
                          onerror="this.style.display='none'">
                     @endif

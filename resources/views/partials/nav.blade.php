@@ -1,11 +1,11 @@
-<nav style="background: white; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 80px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-bottom: 1px solid #e5e7eb;">
+﻿<nav style="background: white; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 80px; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border-bottom: 1px solid #e5e7eb;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; width: 100%;">
 
         {{-- Logo + Site Name --}}
         <a href="{{ route('home') }}" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             @php $logoPath = \App\Models\PageSection::get('home','site','logo'); @endphp
             @if($logoPath)
-            <img src="{{ Storage::url($logoPath) }}" alt="Haawwaa Galaan Logo"
+            <img src="{{ asset('images/'.$logoPath) }}" alt="Haawwaa Galaan Logo"
                  style="height: 50px; width: auto; object-fit: contain;">
             @else
             <div style="width: 46px; height: 46px; background: #1e3a8a; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">

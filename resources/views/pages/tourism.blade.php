@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Tourism – Haawwaa Galaan')
 
@@ -283,7 +283,7 @@
             <div class="card-divider"></div>
             <div class="tourism-card-img">
                 @if($attraction->image)
-                <img src="{{ asset('storage/'.$attraction->image) }}"
+                <img src="{{ asset('images/'.$attraction->image) }}"
                      alt="{{ $attraction->name }}"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="tourism-placeholder" style="display:none;">
@@ -411,7 +411,7 @@ $bioImage = $bioContent['profile_image'] ?? null;
                     <div style="position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);"></div>
 
                     @if($bioImage)
-                    <img src="{{ asset('storage/'.$bioImage) }}" alt="Buraayyuu Abbaa Goosaa"
+                    <img src="{{ asset('images/'.$bioImage) }}" alt="Buraayyuu Abbaa Goosaa"
                          style="width:280px;height:340px;object-fit:cover;border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,0.4);display:block;"
                          onerror="this.style.display='none'">
                     @else

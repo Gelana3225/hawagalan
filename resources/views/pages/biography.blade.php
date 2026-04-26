@@ -45,7 +45,7 @@
 <div class="bio-profile">
 <div class="bio-img-wrap">
 @if(isset($bc['profile_image']) && $bc['profile_image'])
-<img src="{{ asset('storage/'.$bc['profile_image']) }}" alt="Buraayyuu" class="bio-main-img" onerror="this.style.display='none'">
+<img src="{{ asset('images/'.$bc['profile_image']) }}" alt="Buraayyuu" class="bio-main-img" onerror="this.style.display='none'">
 @else
 <div style="width:240px;height:290px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);border-radius:15px;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;"><i class="fas fa-user" style="font-size:5rem;color:rgba(255,255,255,0.3);"></i></div>
 @endif

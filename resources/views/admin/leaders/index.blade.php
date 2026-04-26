@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Leaders')
 
@@ -27,7 +27,7 @@
             <tr style="border-bottom: 1px solid #f3f4f6;">
                 <td style="padding: 12px 20px;">
                     @if($leader->photo)
-                    <img src="{{ Storage::url($leader->photo) }}" alt="{{ $leader->name }}"
+                    <img src="{{ asset('images/'.$leader->photo) }}" alt="{{ $leader->name }}"
                          style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;"
                          onerror="this.style.display='none'">
                     @else

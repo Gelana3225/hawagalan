@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Farming – Haawwaa Galaan')
 
@@ -255,7 +255,7 @@
         @foreach($items as $index => $item)
         <div class="farm-card" style="transition-delay: {{ ($index % 4) * 0.1 }}s;" data-animate>
             @if($item->image)
-            <img src="{{ asset('storage/'.$item->image) }}"
+            <img src="{{ asset('images/'.$item->image) }}"
                  alt="{{ $item->alt_text ?: $item->label }}"
                  onerror="this.parentElement.querySelector('.farm-placeholder') && (this.style.display='none')">
             @else

@@ -18,6 +18,17 @@ Route::get('/farming', [PageController::class, 'farming'])->name('farming');
 Route::get('/tourism', [PageController::class, 'tourism'])->name('tourism');
 Route::get('/biography', [PageController::class, 'biography'])->name('biography');
 
+// Temporary debug route - REMOVE AFTER USE
+Route::get('/check-db', function () {
+    $leaders = \App\Models\Leader::whereNotNull('photo')->take(5)->get(['name','photo']);
+    $output = '<h3>Leader photos in DB:</h3><ul>';
+    foreach ($leaders as $l) {
+        $output .= "<li>{$l->name}: <code>{$l->photo}</code> → <img src='".asset('images/'.$l->photo)."' style='height:50px;'></li>";
+    }
+    $output .= '</ul>';
+    return $output;
+});
+
 // Legacy dashboard redirect (for Breeze auth controllers)
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');

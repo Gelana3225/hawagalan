@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Edit Tourism Attraction')
 
@@ -28,7 +28,7 @@
         <div style="margin-bottom: 20px;">
             <label style="display: block; font-size: 0.85rem; font-weight: 500; color: #374151; margin-bottom: 6px;">Image</label>
             @if($attraction->image)
-            <img id="img-preview" src="{{ Storage::url($attraction->image) }}" alt="{{ $attraction->name }}"
+            <img id="img-preview" src="{{ asset('images/'.$attraction->image) }}" alt="{{ $attraction->name }}"
                  style="display: block; margin-bottom: 10px; width: 150px; height: 100px; object-fit: cover; border-radius: 8px;"
                  onerror="this.style.display='none'">
             @else

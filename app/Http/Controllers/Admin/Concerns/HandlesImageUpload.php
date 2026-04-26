@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Concerns;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 trait HandlesImageUpload
 {
@@ -13,13 +12,20 @@ trait HandlesImageUpload
             return null;
         }
 
-        return $request->file($field)->store('images', 'public');
+        $file = $request->file($field);
+        $filename = $file->hashName();
+        $file->move(base_path('../images'), $filename);
+
+        return $filename; // just the filename, blade adds 'images/' prefix
     }
 
     protected function deleteImage(?string $path): void
     {
-        if ($path && Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
+        if ($path) {
+            $fullPath = base_path('../images/' . $path);
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
         }
     }
 }

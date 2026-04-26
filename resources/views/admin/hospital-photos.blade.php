@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 @section('title', 'Hospital Photos')
 @section('content')
 <div style="margin-bottom:20px;">
@@ -39,7 +39,7 @@
         </div>
         <div style="width:100%;height:200px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#f3f4f6;">
             @if($main)
-            <img src="{{ asset('storage/'.$main->value) }}" id="prev-main_image" style="width:100%;height:100%;object-fit:cover;"
+            <img src="{{ asset('images/'.$main->value) }}" id="prev-main_image" style="width:100%;height:100%;object-fit:cover;"
                  onerror="this.style.display='none'">
             @else
             <div id="prev-main_image" style="width:100%;height:100%;background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
@@ -70,7 +70,7 @@
             </div>
             <div style="height:120px;border-radius:8px;overflow:hidden;margin-bottom:10px;background:#f3f4f6;position:relative;">
                 @if($rec && $rec->value)
-                <img src="{{ asset('storage/'.$rec->value) }}" alt="{{ $fLabel }}"
+                <img src="{{ asset('images/'.$rec->value) }}" alt="{{ $fLabel }}"
                      id="prev-{{ $fKey }}"
                      style="width:100%;height:100%;object-fit:cover;display:block;"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -103,7 +103,7 @@
         </div>
         <div style="width:100%;height:160px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#f3f4f6;">
             @if($green)
-            <img src="{{ asset('storage/'.$green->value) }}" id="prev-facility_green" style="width:100%;height:100%;object-fit:cover;"
+            <img src="{{ asset('images/'.$green->value) }}" id="prev-facility_green" style="width:100%;height:100%;object-fit:cover;"
                  onerror="this.style.display='none'">
             @else
             <div id="prev-facility_green" style="width:100%;height:100%;background:linear-gradient(135deg,#f0fdf4,#dcfce7);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Haawwaa Galaan – Baga Nagaan Dhuftan')
 
@@ -18,7 +18,7 @@ $slideCount = $slides->count() > 0 ? $slides->count() : 3;
     <div id="hero-slides-wrap" style="position:absolute;inset:0;">
         @if($slides->count() > 0)
             @foreach($slides as $i => $slide)
-            <div class="hero-slide" style="position:absolute;inset:0;opacity:{{ $i===0?'1':'0' }};transition:opacity 0.8s ease;background:url('{{ Storage::url($slide->value) }}') center/cover no-repeat;"></div>
+            <div class="hero-slide" style="position:absolute;inset:0;opacity:{{ $i===0?'1':'0' }};transition:opacity 0.8s ease;background:url('{{ asset('images/'.$slide->value) }}') center/cover no-repeat;"></div>
             @endforeach
         @else
             @foreach($defaultSlides as $i => $grad)
@@ -108,7 +108,7 @@ $slideCount = $slides->count() > 0 ? $slides->count() : 3;
             <div>
                 @php $aboutImg = $about['image'] ?? null; @endphp
                 @if($aboutImg)
-                <img src="{{ Storage::url($aboutImg) }}" alt="Karta Aanaa Haawwaa Galaan"
+                <img src="{{ asset('images/'.$aboutImg) }}" alt="Karta Aanaa Haawwaa Galaan"
                      style="width: 100%; height: 400px; object-fit: contain; border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);"
                      onerror="this.style.display='none'">
                 @else
@@ -175,7 +175,7 @@ $defaultInvitations = [
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
             <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.15); height: 420px;">
                 @if($imgPath)
-                <img src="{{ Storage::url($imgPath) }}" alt="Invitation"
+                <img src="{{ asset('images/'.$imgPath) }}" alt="Invitation"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
                 <div style="width:100%;height:100%;background:linear-gradient(135deg,#dbeafe,#bfdbfe);display:flex;align-items:center;justify-content:center;color:#1e3a8a;">
@@ -206,7 +206,7 @@ $defaultInvitations = [
             @foreach($leaders as $leader)
             <div class="attraction-card" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
                 <div style="height: 250px; overflow: hidden; position: relative;">
-                    <img src="{{ $leader->photo ? Storage::url($leader->photo) : asset('images/placeholder.svg') }}"
+                    <img src="{{ $leader->photo ? asset('images/'.$leader->photo) : asset('images/placeholder.svg') }}"
                          alt="{{ $leader->name }}"
                          class="attraction-img"
                          style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;"
@@ -245,7 +245,7 @@ $defaultInvitations = [
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 40px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
             <div style="height: 350px; overflow: hidden; position: relative;">
                 @if($charity->has('main_image') && $charity['main_image'])
-                <img src="{{ Storage::url($charity['main_image']) }}" alt="Charity Main"
+                <img src="{{ asset('images/'.$charity['main_image']) }}" alt="Charity Main"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
                 <div style="width:100%;height:100%;background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;">
@@ -280,7 +280,7 @@ $defaultInvitations = [
             <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
                 <div style="height: 180px; overflow: hidden;">
                     @if($charity->has($item['img_key']) && $charity[$item['img_key']])
-                    <img src="{{ Storage::url($charity[$item['img_key']]) }}" alt="{{ $item['default_title'] }}"
+                    <img src="{{ asset('images/'.$charity[$item['img_key']]) }}" alt="{{ $item['default_title'] }}"
                          style="width:100%;height:100%;object-fit:cover;">
                     @else
                     <div style="width:100%;height:100%;background:linear-gradient(135deg,#1e3a8a,#3b82f6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
@@ -315,7 +315,7 @@ $defaultInvitations = [
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin-bottom: 40px;">
             <div style="border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.12); height: 350px;">
                 @if($hospital->has('main_image') && $hospital['main_image'])
-                <img src="{{ Storage::url($hospital['main_image']) }}" alt="Hospital"
+                <img src="{{ asset('images/'.$hospital['main_image']) }}" alt="Hospital"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
                 <div style="width:100%;height:100%;background:linear-gradient(135deg,#eff6ff,#dbeafe);display:flex;align-items:center;justify-content:center;">
@@ -356,7 +356,7 @@ $defaultInvitations = [
             <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
                 <div style="height: 160px; overflow: hidden;">
                     @if($hospital->has($fac['key']) && $hospital[$fac['key']])
-                    <img src="{{ Storage::url($hospital[$fac['key']]) }}" alt="{{ $fac['label'] }}"
+                    <img src="{{ asset('images/'.$hospital[$fac['key']]) }}" alt="{{ $fac['label'] }}"
                          style="width:100%;height:100%;object-fit:cover;">
                     @else
                     <div style="width:100%;height:100%;background:linear-gradient(135deg,#eff6ff,#dbeafe);display:flex;align-items:center;justify-content:center;">
@@ -375,7 +375,7 @@ $defaultInvitations = [
         <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
             <div style="height: 200px; overflow: hidden;">
                 @if($hospital->has('facility_green') && $hospital['facility_green'])
-                <img src="{{ Storage::url($hospital['facility_green']) }}" alt="Green Area"
+                <img src="{{ asset('images/'.$hospital['facility_green']) }}" alt="Green Area"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
                 <div style="width:100%;height:100%;background:linear-gradient(135deg,#f0fdf4,#dcfce7);display:flex;align-items:center;justify-content:center;">
@@ -402,7 +402,7 @@ $defaultInvitations = [
             <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 @if($post->image)
                 <div style="height: 200px; overflow: hidden;">
-                    <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}"
+                    <img src="{{ asset('images/'.$post->image) }}" alt="{{ $post->title }}"
                          style="width: 100%; height: 100%; object-fit: cover;"
                          onerror="this.src='{{ asset('images/placeholder.jpg') }}'">
                 </div>
@@ -435,7 +435,7 @@ $defaultInvitations = [
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 30px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
             <div style="height: 350px; overflow: hidden;">
                 @if($football->has('main_image') && $football['main_image'])
-                <img src="{{ Storage::url($football['main_image']) }}" alt="Football Championship"
+                <img src="{{ asset('images/'.$football['main_image']) }}" alt="Football Championship"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
                 <div style="width:100%;height:100%;background:linear-gradient(135deg,#fef3c7,#fde68a);display:flex;align-items:center;justify-content:center;">
@@ -461,7 +461,7 @@ $defaultInvitations = [
             @foreach($footballGallery as $gKey)
             <div style="border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); height: 180px;">
                 @if($football->has($gKey) && $football[$gKey])
-                <img src="{{ Storage::url($football[$gKey]) }}" alt="Football"
+                <img src="{{ asset('images/'.$football[$gKey]) }}" alt="Football"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
                 <div style="width:100%;height:100%;background:linear-gradient(135deg,#fef3c7,#fde68a);display:flex;align-items:center;justify-content:center;">

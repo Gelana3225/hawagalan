@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Tourism Attractions')
 
@@ -24,7 +24,7 @@
             <tr style="border-bottom: 1px solid #f3f4f6;">
                 <td style="padding: 12px 20px;">
                     @if($attraction->image)
-                    <img src="{{ Storage::url($attraction->image) }}" alt="{{ $attraction->name }}"
+                    <img src="{{ asset('images/'.$attraction->image) }}" alt="{{ $attraction->name }}"
                          style="width: 60px; height: 45px; object-fit: cover; border-radius: 6px;"
                          onerror="this.style.display='none'">
                     @endif

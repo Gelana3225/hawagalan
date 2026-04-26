@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Edit ' . ucfirst($page) . ' Page')
 
@@ -32,7 +32,7 @@
             @if(str_contains($item->key, 'image') || str_contains($item->key, 'photo') || str_contains($item->key, 'logo') || str_contains($item->key, 'slide_'))
                 @if($item->value)
                 <div style="margin-bottom: 8px;">
-                    <img src="{{ Storage::url($item->value) }}" alt="{{ $item->key }}"
+                    <img src="{{ asset('images/'.$item->value) }}" alt="{{ $item->key }}"
                          style="height: 80px; width: auto; border-radius: 8px; object-fit: cover;"
                          onerror="this.style.display='none'">
                 </div>

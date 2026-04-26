@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 @section('title', 'Football Gallery')
 @section('content')
 <div style="margin-bottom:20px;">
@@ -50,7 +50,7 @@
         </div>
         <div style="width:100%;height:200px;border-radius:10px;overflow:hidden;margin-bottom:12px;background:#f3f4f6;">
             @if($main && $main->value)
-            <img src="{{ asset('storage/'.$main->value) }}" id="prev-main_image" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+            <img src="{{ asset('images/'.$main->value) }}" id="prev-main_image" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
             @else
             <div id="prev-main_image" style="width:100%;height:100%;background:linear-gradient(135deg,#fef3c7,#fde68a);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
                 <i class="fas fa-trophy" style="font-size:3rem;color:#f59e0b;opacity:0.6;"></i>
@@ -78,7 +78,7 @@
             <div style="border-radius:12px;overflow:hidden;border:2px solid {{ $rec ? '#3b82f6' : '#e5e7eb' }};background:white;">
                 <div style="height:130px;position:relative;background:#f3f4f6;">
                     @if($rec && $rec->value)
-                    <img src="{{ asset('storage/'.$rec->value) }}" id="prev-{{ $gKey }}"
+                    <img src="{{ asset('images/'.$rec->value) }}" id="prev-{{ $gKey }}"
                          style="width:100%;height:100%;object-fit:cover;display:block;"
                          onerror="this.style.display='none'">
                     @else
