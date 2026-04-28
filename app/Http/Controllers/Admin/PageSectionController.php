@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace App\Http\Controllers\Admin;
 
@@ -10,6 +10,21 @@ use Illuminate\View\View;
 
 class PageSectionController extends Controller
 {
+    private function storeImage($file): string
+    {
+        $filename = $file->hashName();
+        $file->move(base_path('../images'), $filename);
+        return $filename;
+    }
+
+    private function removeImage(?string $path): void
+    {
+        if ($path) {
+            $fullPath = base_path('../images/' . basename($path));
+            if (file_exists($fullPath)) unlink($fullPath);
+        }
+    }
+
     public function heroSlides(): View
     {
         $slides = \App\Models\PageSection::where('page', 'home')
@@ -56,7 +71,7 @@ class PageSectionController extends Controller
                     \Illuminate\Support\Facades\Storage::disk('public')->delete($existing->value);
                 }
 
-                $path = $file->store('images', 'public');
+                $path = $this->storeImage($file);
                 \App\Models\PageSection::updateOrCreate(
                     ['page' => 'home', 'section' => 'hero_slides', 'key' => $key],
                     ['value' => $path]
@@ -207,7 +222,7 @@ class PageSectionController extends Controller
         foreach ($request->allFiles() as $fieldName => $file) {
             if (str_contains($fieldName, '__')) {
                 [$section, $key] = explode('__', $fieldName, 2);
-                $path = $file->store('images', 'public');
+                $path = $this->storeImage($file);
                 PageSection::updateOrCreate(
                     ['page' => $page, 'section' => $section, 'key' => $key],
                     ['value' => $path]
