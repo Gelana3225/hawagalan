@@ -29,7 +29,7 @@ class FarmingItemController extends Controller
     {
         $data = $request->validate([
             'label'      => 'required|string|max:255',
-            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'alt_text'   => 'nullable|string|max:500',
             'sort_order' => 'nullable|integer|min:0',
             'is_visible' => 'nullable|boolean',
@@ -53,7 +53,7 @@ class FarmingItemController extends Controller
     {
         $data = $request->validate([
             'label'      => 'required|string|max:255',
-            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'alt_text'   => 'nullable|string|max:500',
             'sort_order' => 'nullable|integer|min:0',
             'is_visible' => 'nullable|boolean',

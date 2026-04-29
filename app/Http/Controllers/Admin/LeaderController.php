@@ -31,7 +31,7 @@ class LeaderController extends Controller
             'name'        => 'required|string|max:255',
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
-            'photo'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'photo'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'sort_order'  => 'nullable|integer|min:0',
             'is_visible'  => 'nullable|boolean',
         ]);
@@ -56,7 +56,7 @@ class LeaderController extends Controller
             'name'        => 'required|string|max:255',
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
-            'photo'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'photo'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'sort_order'  => 'nullable|integer|min:0',
             'is_visible'  => 'nullable|boolean',
         ]);

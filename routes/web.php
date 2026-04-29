@@ -26,6 +26,12 @@ Route::get('/check-db', function () {
         $output .= "<li>{$l->name}: <code>{$l->photo}</code> → <img src='".asset('images/'.$l->photo)."' style='height:50px;'></li>";
     }
     $output .= '</ul>';
+    $output .= '<h3>Paths:</h3>';
+    $output .= '<p>base_path(): ' . base_path() . '</p>';
+    $output .= '<p>base_path(../images): ' . base_path('../images') . '</p>';
+    $output .= '<p>public_path(): ' . public_path() . '</p>';
+    $output .= '<p>Exists base_path(../images): ' . (is_dir(base_path('../images')) ? 'YES' : 'NO') . '</p>';
+    $output .= '<p>Writable: ' . (is_writable(base_path('../images')) ? 'YES' : 'NO') . '</p>';
     return $output;
 });
 

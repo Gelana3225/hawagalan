@@ -30,7 +30,7 @@ class TourismAttractionController extends Controller
         $data = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'category'    => 'nullable|string|max:100',
             'features'    => 'nullable|string',
             'sort_order'  => 'nullable|integer|min:0',
@@ -57,7 +57,7 @@ class TourismAttractionController extends Controller
         $data = $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'category'    => 'nullable|string|max:100',
             'features'    => 'nullable|string',
             'sort_order'  => 'nullable|integer|min:0',

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 namespace App\Http\Controllers\Admin;
 
@@ -39,7 +39,7 @@ class PageSectionController extends Controller
     public function updateHeroSlides(Request $request): RedirectResponse
     {
         $request->validate([
-            'slides.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'slides.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
         ]);
 
         for ($i = 1; $i <= 5; $i++) {
@@ -52,7 +52,7 @@ class PageSectionController extends Controller
                     ->where('key', $key)
                     ->first();
                 if ($existing) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($existing->value);
+                    $this->removeImage($existing->value);
                     $existing->delete();
                 }
                 continue;
@@ -68,7 +68,7 @@ class PageSectionController extends Controller
                     ->where('key', $key)
                     ->first();
                 if ($existing) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($existing->value);
+                    $this->removeImage($existing->value);
                 }
 
                 $path = $this->storeImage($file);
@@ -91,7 +91,7 @@ class PageSectionController extends Controller
 
     public function updateFootballPhotos(Request $request): RedirectResponse
     {
-        $request->validate(['photos.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480']);
+        $request->validate(['photos.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400']);
 
         // Only process image fields that actually have a new file uploaded
         $imageFields = ['main_image','gallery_1','gallery_2','gallery_3','gallery_4','gallery_5','gallery_6'];
@@ -102,7 +102,7 @@ class PageSectionController extends Controller
                 $rec = \App\Models\PageSection::where('page','home')
                     ->where('section','football')->where('key',$field)->first();
                 if ($rec) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($rec->value);
+                    $this->removeImage($rec->value);
                     $rec->delete();
                 }
                 continue;
@@ -114,9 +114,9 @@ class PageSectionController extends Controller
                 $existing = \App\Models\PageSection::where('page','home')
                     ->where('section','football')->where('key',$field)->first();
                 if ($existing && $existing->value) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($existing->value);
+                    $this->removeImage($existing->value);
                 }
-                $path = $file->store('images','public');
+                $path = $this->storeImage($file);
                 \App\Models\PageSection::updateOrCreate(
                     ['page'=>'home','section'=>'football','key'=>$field],
                     ['value'=>$path]
@@ -149,7 +149,7 @@ class PageSectionController extends Controller
 
     public function updateHospitalPhotos(Request $request): RedirectResponse
     {
-        $request->validate(['photos.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480']);
+        $request->validate(['photos.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400']);
 
         $imageFields = ['main_image','facility_lab','facility_gene','facility_chemistry','facility_ultra','facility_operation','facility_xray','facility_green'];
 
@@ -158,7 +158,7 @@ class PageSectionController extends Controller
                 $rec = \App\Models\PageSection::where('page','home')
                     ->where('section','hospital')->where('key',$field)->first();
                 if ($rec) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($rec->value);
+                    $this->removeImage($rec->value);
                     $rec->delete();
                 }
                 continue;
@@ -169,9 +169,9 @@ class PageSectionController extends Controller
                 $existing = \App\Models\PageSection::where('page','home')
                     ->where('section','hospital')->where('key',$field)->first();
                 if ($existing && $existing->value) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($existing->value);
+                    $this->removeImage($existing->value);
                 }
-                $path = $file->store('images','public');
+                $path = $this->storeImage($file);
                 \App\Models\PageSection::updateOrCreate(
                     ['page'=>'home','section'=>'hospital','key'=>$field],
                     ['value'=>$path]

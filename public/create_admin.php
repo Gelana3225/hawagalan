@@ -32,8 +32,8 @@ try {
 
     echo "<p style='font-family:sans-serif;'>Email: <strong>$email</strong> | Password: <strong>Admin@1234</strong></p>";
 
-    // 2. Fix image paths - strip 'images/' prefix from all image columns
-    $fixed = 0;
+    // 2. Clear all image paths from DB so you can re-upload fresh
+    $cleared = 0;
 
     $tables = [
         'leaders'             => ['photo'],
@@ -45,23 +45,23 @@ try {
 
     foreach ($tables as $table => $columns) {
         foreach ($columns as $col) {
-            $rows = $pdo->query("SELECT id, `$col` FROM `$table` WHERE `$col` LIKE 'images/%'")->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($rows as $row) {
-                $newVal = substr($row[$col], 7);
-                $pdo->prepare("UPDATE `$table` SET `$col` = ? WHERE id = ?")->execute([$newVal, $row['id']]);
-                $fixed++;
-            }
+            $count = $pdo->exec("UPDATE `$table` SET `$col` = NULL");
+            $cleared += $count;
         }
     }
 
-    $rows = $pdo->query("SELECT id, value FROM page_sections WHERE value LIKE 'images/%'")->fetchAll(PDO::FETCH_ASSOC);
+    // Clear image values from page_sections (keep text values)
+    $imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'];
+    $rows = $pdo->query("SELECT id, value FROM page_sections WHERE value IS NOT NULL")->fetchAll(PDO::FETCH_ASSOC);
     foreach ($rows as $row) {
-        $newVal = substr($row['value'], 7);
-        $pdo->prepare("UPDATE page_sections SET value = ? WHERE id = ?")->execute([$newVal, $row['id']]);
-        $fixed++;
+        $ext = strtolower(pathinfo($row['value'], PATHINFO_EXTENSION));
+        if (in_array($ext, $imageExtensions)) {
+            $pdo->prepare("UPDATE page_sections SET value = NULL WHERE id = ?")->execute([$row['id']]);
+            $cleared++;
+        }
     }
 
-    echo "<p style='color:green;font-family:sans-serif;'>✅ Fixed $fixed image paths in database.</p>";
+    echo "<p style='color:green;font-family:sans-serif;'>✅ Cleared $cleared image paths from database. Now re-upload all images from the admin panel.</p>";
     echo "<p style='color:red;font-family:sans-serif;font-weight:bold;'>⚠️ DELETE THIS FILE NOW!</p>";
 
 } catch (Exception $e) {

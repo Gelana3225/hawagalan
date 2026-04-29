@@ -30,7 +30,7 @@ class NewsController extends Controller
         $data = $request->validate([
             'title'        => 'required|string|max:255',
             'body'         => 'required|string',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'is_published' => 'nullable|boolean',
             'published_at' => 'nullable|date',
         ]);
@@ -54,7 +54,7 @@ class NewsController extends Controller
         $data = $request->validate([
             'title'        => 'required|string|max:255',
             'body'         => 'required|string',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:20480',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:102400',
             'is_published' => 'nullable|boolean',
             'published_at' => 'nullable|date',
         ]);
