@@ -17,3 +17,14 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Temp/sensitive files
+/public/create_admin.php
+/public/check_db.php
+/fix_image_paths.php
+/translate_to_english.php
+
+# Uploaded images (don't commit user uploads)
+/public/images/*
+!/public/images/placeholder.svg
+!/public/images/.gitkeep
