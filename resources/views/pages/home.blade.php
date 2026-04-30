@@ -400,12 +400,25 @@ $defaultInvitations = [
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
             @foreach($news as $post)
             <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                @if($post->image)
-                <div style="height: 200px; overflow: hidden;">
-                    <img src="{{ asset('images/'.$post->image) }}" alt="{{ $post->title }}"
+                @php $allImgs = $post->allImages(); @endphp
+                @if(count($allImgs) > 0)
+                <div style="height: 200px; overflow: hidden; position: relative;">
+                    <img src="{{ asset('images/'.$allImgs[0]) }}" alt="{{ $post->title }}"
                          style="width: 100%; height: 100%; object-fit: cover;"
-                         onerror="this.src='{{ asset('images/placeholder.jpg') }}'">
+                         onerror="this.style.display='none'">
+                    @if(count($allImgs) > 1)
+                    <span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:white;font-size:0.75rem;padding:3px 8px;border-radius:20px;">
+                        +{{ count($allImgs) - 1 }} more
+                    </span>
+                    @endif
                 </div>
+                @if(count($allImgs) > 1)
+                <div style="display:flex;gap:4px;padding:4px;">
+                    @foreach(array_slice($allImgs, 1, 4) as $img)
+                    <img src="{{ asset('images/'.$img) }}" style="flex:1;height:60px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">
+                    @endforeach
+                </div>
+                @endif
                 @endif
                 <div style="padding: 25px;">
                     <p style="color: #9ca3af; font-size: 0.85rem; margin-bottom: 10px;">

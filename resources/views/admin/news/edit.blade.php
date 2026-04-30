@@ -26,7 +26,7 @@
         </div>
 
         <div style="margin-bottom: 20px;">
-            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: #374151; margin-bottom: 6px;">Image</label>
+            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: #374151; margin-bottom: 6px;">Cover Image</label>
             @if($post->image)
             <img id="img-preview" src="{{ asset('images/'.$post->image) }}" alt="{{ $post->title }}"
                  style="display: block; margin-bottom: 10px; width: 150px; height: 100px; object-fit: cover; border-radius: 8px;"
@@ -38,6 +38,30 @@
                    onchange="document.getElementById('img-preview').src = URL.createObjectURL(this.files[0]); document.getElementById('img-preview').style.display='block';"
                    style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.9rem;">
             <p style="color: #9ca3af; font-size: 0.8rem; margin-top: 4px;">Leave empty to keep current image.</p>
+        </div>
+
+        {{-- Extra images --}}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 500; color: #374151; margin-bottom: 10px;">Extra Photos</label>
+
+            @if($post->images && count($post->images) > 0)
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                @foreach($post->images as $img)
+                <div style="position: relative;">
+                    <img src="{{ asset('images/'.$img) }}" style="width: 100px; height: 70px; object-fit: cover; border-radius: 8px;" onerror="this.style.display='none'">
+                    <label style="position: absolute; top: 4px; right: 4px; background: rgba(239,68,68,0.9); border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                        <input type="checkbox" name="delete_images[]" value="{{ $img }}" style="display:none;" onchange="this.parentElement.parentElement.style.opacity=this.checked?'0.4':'1'">
+                        <span style="color:white; font-size: 0.7rem;">✕</span>
+                    </label>
+                </div>
+                @endforeach
+            </div>
+            <p style="color: #9ca3af; font-size: 0.8rem; margin-bottom: 8px;">Click ✕ on a photo to delete it on save.</p>
+            @endif
+
+            <input type="file" name="extra_images[]" accept="image/*" multiple
+                   style="width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 0.9rem;">
+            <p style="color: #9ca3af; font-size: 0.8rem; margin-top: 4px;">Hold Ctrl/Cmd to select multiple photos.</p>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
