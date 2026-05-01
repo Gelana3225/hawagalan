@@ -17,6 +17,7 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/farming', [PageController::class, 'farming'])->name('farming');
 Route::get('/tourism', [PageController::class, 'tourism'])->name('tourism');
 Route::get('/biography', [PageController::class, 'biography'])->name('biography');
+Route::get('/news/{id}', [PageController::class, 'newsDetail'])->name('news.show');
 
 // Temporary debug route - REMOVE AFTER USE
 Route::get('/check-db', function () {

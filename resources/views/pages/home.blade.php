@@ -12,7 +12,7 @@ $defaultSlides = ['linear-gradient(135deg,#1e3a8a 0%,#3b82f6 100%)','linear-grad
 $slideCount = $slides->count() > 0 ? $slides->count() : 3;
 @endphp
 
-<section id="home" style="position:relative;width:100%;height:100vh;overflow:hidden;">
+<section id="home" style="position:relative;width:100%;height:calc(100vh - 0px);min-height:650px;overflow:hidden;margin-top:0;">
 
     {{-- Slides stacked with opacity transition --}}
     <div id="hero-slides-wrap" style="position:absolute;inset:0;">
@@ -82,30 +82,30 @@ $slideCount = $slides->count() > 0 ? $slides->count() : 3;
 <!-- About Section -->
 <section id="about" style="padding: 80px 0; background: white;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <h2 style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; color: #1f2937; text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 700; color: #1f2937; text-align: center; margin-bottom: 40px;" data-animate>
             {{ $about['title'] ?? 'SEENAA HUNDEEFFAMA AANAA HAAWWAA GALAAN' }}
         </h2>
         <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
-            <div>
+            <div data-animate="left">
                 <div style="color: #4b5563; line-height: 1.8; font-size: 1.05rem; word-wrap: break-word; overflow-wrap: break-word;">
                     {!! nl2br(e($about['body'] ?? 'Aanaan Hawwaa Galaan aanolee Godina Qellem Wallaggaa keessaa ishee tokko.')) !!}
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 30px;">
-                    <div style="text-align: center; padding: 15px 10px; background: #f0f9ff; border-radius: 15px;">
+                    <div class="stat-box" style="text-align: center; padding: 15px 10px; background: #f0f9ff; border-radius: 15px;">
                         <h3 style="font-size: 1.5rem; font-weight: 700; color: #3b82f6; margin-bottom: 5px;">100K+</h3>
                         <p style="color: #6b7280; font-size: 0.85rem;">Jiraattota</p>
                     </div>
-                    <div style="text-align: center; padding: 15px 10px; background: #f0f9ff; border-radius: 15px;">
+                    <div class="stat-box" style="text-align: center; padding: 15px 10px; background: #f0f9ff; border-radius: 15px;">
                         <h3 style="font-size: 1.5rem; font-weight: 700; color: #3b82f6; margin-bottom: 5px;">50+</h3>
                         <p style="color: #6b7280; font-size: 0.85rem;">Hawwatamummaa</p>
                     </div>
-                    <div style="text-align: center; padding: 15px 10px; background: #f0f9ff; border-radius: 15px;">
+                    <div class="stat-box" style="text-align: center; padding: 15px 10px; background: #f0f9ff; border-radius: 15px;">
                         <h3 style="font-size: 1.5rem; font-weight: 700; color: #3b82f6; margin-bottom: 5px;">200+</h3>
                         <p style="color: #6b7280; font-size: 0.85rem;">Bara Seenaa</p>
                     </div>
                 </div>
             </div>
-            <div>
+            <div data-animate="right">
                 @php $aboutImg = $about['image'] ?? null; @endphp
                 @if($aboutImg)
                 <img src="{{ asset('images/'.$aboutImg) }}" alt="Karta Aanaa Haawwaa Galaan"
@@ -199,12 +199,12 @@ $defaultInvitations = [
 @if($leaders->isNotEmpty())
 <section id="leaders" style="padding: 80px 0; background: #f8fafc;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <h2 style="font-size: 2.2rem; font-weight: 700; color: #1f2937; text-align: center; margin-bottom: 50px;">
+        <h2 style="font-size: 2.2rem; font-weight: 700; color: #1f2937; text-align: center; margin-bottom: 50px;" data-animate>
             Hooggantoota Sekteraalee
         </h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-            @foreach($leaders as $leader)
-            <div class="attraction-card" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+            @foreach($leaders as $index => $leader)
+            <div class="attraction-card" data-animate style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease; transition-delay: {{ ($index % 3) * 0.1 }}s;">
                 <div style="height: 250px; overflow: hidden; position: relative;">
                     <img src="{{ $leader->photo ? asset('images/'.$leader->photo) : asset('images/placeholder.svg') }}"
                          alt="{{ $leader->name }}"
@@ -277,7 +277,7 @@ $defaultInvitations = [
         @endphp
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
             @foreach($charityItems as $item)
-            <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
+            <div class="charity-card" style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08);">
                 <div style="height: 180px; overflow: hidden;">
                     @if($charity->has($item['img_key']) && $charity[$item['img_key']])
                     <img src="{{ asset('images/'.$charity[$item['img_key']]) }}" alt="{{ $item['default_title'] }}"
@@ -394,40 +394,63 @@ $defaultInvitations = [
 @if($news->isNotEmpty())
 <section id="news" style="padding: 80px 0; background: #f8fafc;">
     <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-        <h2 style="font-size: 2.2rem; font-weight: 700; color: #1f2937; text-align: center; margin-bottom: 50px;">
+        <h2 style="font-size: 2.2rem; font-weight: 700; color: #1f2937; text-align: center; margin-bottom: 50px;" data-animate>
             Oduu fi Beeksisa
         </h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
             @foreach($news as $post)
-            <div style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                @php $allImgs = $post->allImages(); @endphp
+            @php $allImgs = $post->allImages(); @endphp
+            <div data-animate class="news-card" style="background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);cursor:pointer;"
+                 onclick="window.location='{{ route('news.show', $post->id) }}'">
+
+                {{-- Main cover image --}}
                 @if(count($allImgs) > 0)
-                <div style="height: 200px; overflow: hidden; position: relative;">
+                <div style="position:relative;height:380px;overflow:hidden;margin:8px 8px 0;border-radius:14px;">
                     <img src="{{ asset('images/'.$allImgs[0]) }}" alt="{{ $post->title }}"
-                         style="width: 100%; height: 100%; object-fit: cover;"
-                         onerror="this.style.display='none'">
+                         class="news-cover-img"
+                         style="width:100%;height:100%;object-fit:cover;"
+                         onerror="this.parentElement.style.display='none'">
+                    {{-- Photo count badge --}}
                     @if(count($allImgs) > 1)
-                    <span style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.6);color:white;font-size:0.75rem;padding:3px 8px;border-radius:20px;">
-                        +{{ count($allImgs) - 1 }} more
-                    </span>
+                    <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.6);color:white;font-size:0.75rem;font-weight:600;padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;backdrop-filter:blur(4px);">
+                        <i class="fas fa-images" style="font-size:0.7rem;"></i> {{ count($allImgs) }} photos
+                    </div>
                     @endif
+                    {{-- Date badge --}}
+                    <div style="position:absolute;bottom:12px;left:12px;background:rgba(30,58,138,0.85);color:white;font-size:0.75rem;font-weight:500;padding:4px 10px;border-radius:20px;backdrop-filter:blur(4px);">
+                        {{ $post->published_at?->format('M d, Y') }}
+                    </div>
                 </div>
+
+                {{-- Thumbnail strip for extra images --}}
                 @if(count($allImgs) > 1)
-                <div style="display:flex;gap:4px;padding:4px;">
-                    @foreach(array_slice($allImgs, 1, 4) as $img)
-                    <img src="{{ asset('images/'.$img) }}" style="flex:1;height:60px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">
+                <div style="display:grid;grid-template-columns:repeat({{ min(count($allImgs)-1, 4) }}, 1fr);gap:6px;padding:8px;height:160px;">
+                    @foreach(array_slice($allImgs, 1, 4) as $idx => $img)
+                    <div style="position:relative;overflow:hidden;border-radius:10px;">
+                        <img src="{{ asset('images/'.$img) }}"
+                             style="width:100%;height:100%;object-fit:cover;"
+                             onerror="this.parentElement.style.display='none'">
+                        @if($idx === 3 && count($allImgs) > 5)
+                        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:1.2rem;border-radius:10px;">
+                            +{{ count($allImgs) - 5 }}
+                        </div>
+                        @endif
+                    </div>
                     @endforeach
                 </div>
                 @endif
                 @endif
-                <div style="padding: 25px;">
-                    <p style="color: #9ca3af; font-size: 0.85rem; margin-bottom: 10px;">
-                        {{ $post->published_at?->format('M d, Y') }}
+
+                {{-- Content --}}
+                <div style="padding:20px 22px 22px;">
+                    <h3 style="font-size:1.05rem;font-weight:700;color:#111827;margin-bottom:8px;line-height:1.4;">{{ $post->title }}</h3>
+                    <p style="color:#6b7280;line-height:1.6;font-size:0.9rem;margin:0 0 14px;">
+                        {{ Str::limit($post->body, 120) }}
                     </p>
-                    <h3 style="font-size: 1.1rem; font-weight: 700; color: #1f2937; margin-bottom: 12px;">{{ $post->title }}</h3>
-                    <p style="color: #6b7280; line-height: 1.6; font-size: 0.95rem;">
-                        {{ Str::limit($post->body, 150) }}
-                    </p>
+                    <a href="{{ route('news.show', $post->id) }}"
+                       style="display:inline-flex;align-items:center;gap:6px;color:#1e3a8a;font-weight:600;font-size:0.85rem;text-decoration:none;">
+                        Guutuu Dubbisi <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
+                    </a>
                 </div>
             </div>
             @endforeach

@@ -13,6 +13,100 @@
     *, *::before, *::after { box-sizing: border-box; }
     img { max-width: 100%; height: auto; }
 
+    /* ===== SCROLL ANIMATIONS ===== */
+    [data-animate] {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    [data-animate].animated {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    [data-animate="left"] { transform: translateX(-50px); }
+    [data-animate="left"].animated { transform: translateX(0); }
+    [data-animate="right"] { transform: translateX(50px); }
+    [data-animate="right"].animated { transform: translateX(0); }
+    [data-animate="scale"] { transform: scale(0.85); opacity: 0; }
+    [data-animate="scale"].animated { transform: scale(1); opacity: 1; }
+
+    /* ===== HOVER CARD ANIMATIONS ===== */
+
+    /* Leader cards */
+    .attraction-card {
+        transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease !important;
+    }
+    .attraction-card:hover {
+        transform: translateY(-10px) scale(1.02) !important;
+        box-shadow: 0 24px 50px rgba(0,0,0,0.18) !important;
+    }
+    .attraction-card:hover .attraction-img {
+        transform: scale(1.08);
+    }
+    .attraction-img {
+        transition: transform 0.5s ease !important;
+    }
+
+    /* News cards */
+    .news-card {
+        transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease !important;
+    }
+    .news-card:hover {
+        transform: translateY(-8px) !important;
+        box-shadow: 0 20px 45px rgba(0,0,0,0.15) !important;
+    }
+    .news-card:hover .news-cover-img {
+        transform: scale(1.06);
+    }
+    .news-cover-img {
+        transition: transform 0.5s ease !important;
+    }
+
+    /* Charity gallery cards */
+    .charity-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    .charity-card:hover {
+        transform: translateY(-6px) !important;
+        box-shadow: 0 16px 35px rgba(0,0,0,0.15) !important;
+    }
+    .charity-card:hover img {
+        transform: scale(1.07);
+    }
+    .charity-card img {
+        transition: transform 0.4s ease !important;
+    }
+
+    /* Invitation cards */
+    .invite-img {
+        transition: transform 0.5s ease !important;
+        overflow: hidden;
+    }
+    .invite-img:hover img {
+        transform: scale(1.04);
+    }
+    .invite-img img {
+        transition: transform 0.5s ease !important;
+    }
+
+    /* Stat boxes */
+    .stat-box {
+        transition: transform 0.3s ease, background 0.3s ease !important;
+    }
+    .stat-box:hover {
+        transform: translateY(-4px) scale(1.05) !important;
+        background: #dbeafe !important;
+    }
+
+    /* Buttons */
+    a[style*="border-radius:50px"], a[style*="border-radius: 50px"] {
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    a[style*="border-radius:50px"]:hover, a[style*="border-radius: 50px"]:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important;
+    }
+
     /* ── Nav mobile ── */
     @media (max-width: 768px) {
         #hamburger { display: flex !important; }
@@ -198,6 +292,32 @@
     @include('partials.footer')
 
     @stack('scripts')
+
+    <script>
+    // Scroll animation observer
+    (function() {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        function observe() {
+            document.querySelectorAll('[data-animate]').forEach(function(el) {
+                observer.observe(el);
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', observe);
+        } else {
+            observe();
+        }
+    })();
+    </script>
 </body>
 </html>
 

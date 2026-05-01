@@ -41,6 +41,13 @@ class PageController extends Controller
         ]);
     }
 
+    public function newsDetail(int $id): View
+    {
+        $post = NewsPost::published()->findOrFail($id);
+        $recent = NewsPost::published()->where('id', '!=', $id)->latest('published_at')->take(3)->get();
+        return view('pages.news-detail', compact('post', 'recent'));
+    }
+
     public function biography(): View
     {
         $raw = \App\Models\PageSection::where('page', 'biography')->pluck('value', 'key');
